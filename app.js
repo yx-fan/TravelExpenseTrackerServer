@@ -1,11 +1,14 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const db = require('./config/db');
-const kafkaService = require('./config/kafka');
+// const kafkaService = require('./config/kafka');
 const logger = require('./utils/logger');
 const errorMiddleware = require('./middlewares/error.middleware');
 const authMiddleware = require('./middlewares/auth.middleware');
 const authRoutes = require('./src/api/v1/auth/auth.route');
+const RabbitmqProducer = require('./messaging/rabbitmqProducer.service');
+const rabbitmqConsumer = require('./messaging/rabbitmqConsumer.service');
+
 
 // Load environment variables
 dotenv.config();
@@ -14,8 +17,9 @@ dotenv.config();
 db.connect();
 
 // Initialize Kafka producer and consumer
-kafkaService.initProducer();
-kafkaService.initConsumer();
+// kafkaService.initProducer();
+// kafkaService.initConsumer();
+rabbitmqConsumer.runConsumer();
 
 const app = express();
 
@@ -41,8 +45,9 @@ if (process.env.NODE_ENV === 'development') {
     // Test Kafka producer route
     app.get('/produce/:message', async (req, res) => {
         const message = req.params.message;
-        await kafkaService.sendMessage('test', [message]);
-        res.send('Test message sent to Kafka');
+        await RabbitmqProducer.sendMessage('test', message);
+        // await kafkaService.sendMessage('test', [message]);
+        res.send('Test message sent to rabbitmq and kafka');
     });
 
     // Test of auth middleware, should return 401

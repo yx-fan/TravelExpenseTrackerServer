@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const dotenv = require('dotenv');
 const logger = require('../utils/logger');
+const customError = require('../utils/customError');
 
 dotenv.config();
 
@@ -9,8 +10,7 @@ const authMiddleware = (req, res, next) => {
     const token = req.header('Authorization');
 
     if (!token) {
-        const err = new Error('No token provided, authorization denied');
-        err.statusCode = 401;
+        const err = new customError('No token provided, authorization denied', 401);
         return next(err);
     }
 

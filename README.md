@@ -16,14 +16,14 @@ Travel and Expense Tracker is a Node.js-based backend application designed to he
 - Offline Mode -- ongoing
 - Team and Multi-User Support -- ongoing
 - Integration with Third-Party Services -- ongoing
-- Kafka Integration for Asynchronous Processing -- ongoing
+- RabbitMQ Integration for Asynchronous Processing -- ongoing
 
 ## Technologies Used
 
 - Node.js
 - Express
 - MongoDB
-- Kafka
+- RabbitMQ
 - Passport.js (for authentication)
 - JWT (for token-based authentication)
 - Docker
@@ -34,7 +34,7 @@ Travel and Expense Tracker is a Node.js-based backend application designed to he
 ### Prerequisites
 
 - Node.js (version 18.17.1 or above)
-- Kafka
+- RabbitMQ
 - MongoDB
 - Docker and Docker Compose
 
@@ -52,27 +52,37 @@ npm install
 ```
 
 3. **Set up environment variables:**
-Create a `.env` file in the root directory and add the following variables: -- ongoing
+Create a `.env` file in the root directory and add the following variables for starting locally:
 ```bash
 PORT=3000
 MONGO_URI=mongodb://localhost:27017/travel-expense-tracker
-JWT_SECRET=your_jwt_secret
-KAFKA_BROKER=localhost:9092
+JWT_SECRET=change_to_the_jwt_secret
 LOG_LEVEL=debug
 NODE_ENV=development
+RABBITMQ_URL=amqp://127.0.0.1:5672
+```
+
+Create a `.env.docker` file in the root directory and add the following variables for starting by docker-compose:
+```bash
+PORT=3000
+MONGO_URI=mongodb://mongodb:27017/travel-expense-tracker
+JWT_SECRET=change_to_the_jwt_secret
+LOG_LEVEL=debug
+NODE_ENV=development
+RABBITMQ_URL=amqp://rabbitmq:5672
 ```
 
 ### Running the Application
 
 1. **Using Docker**
-Start services using Docker Compose: -- ongoing
+Start services using Docker Compose:
 ```bash
-docker-compose up
+docker-compose up --build
 ```
 This will start the server along with MongoDB and Kafka as defined in the `docker-compose.yml` file.
 
 2. **Running Locally**
-Before start the server, Make sure MongoDB and Kafka are running locally.
+Before start the server, Make sure MongoDB and RabbitMQ are running locally.
 Start the server:
 ```bash
 npm run dev

@@ -17,7 +17,9 @@ class Database {
             logger.info("Connected to database");
         } catch (err) {
             logger.error(`Error connecting to database: ${err.message}`);
-            process.exit(1);
+            setTimeout(() => {
+                process.exit(1);  // Exit process to allow docker-compose restart policy to restart the container
+            }, 5000);
         }
     }
 }
