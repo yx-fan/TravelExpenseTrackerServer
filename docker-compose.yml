@@ -4,6 +4,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      - TZ=America/New_York
     ports:
       - "3000:3000"
     volumes:
@@ -16,6 +18,8 @@ services:
 
   rabbitmq:
     image: "rabbitmq:3-management"
+    environment:
+      - TZ=America/New_York
     ports:
       - "15672:15672"
       - "5672:5672"
@@ -25,6 +29,8 @@ services:
 
   mongodb:
     image: "mongo:latest"
+    environment:
+      - TZ=America/New_York
     ports:
       - "27017:27017"
     volumes:
