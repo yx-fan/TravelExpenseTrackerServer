@@ -1,5 +1,6 @@
 const userModel = require('../../../../model/user.model');
 const customError = require('../../../../utils/customError');
+const logger = require('../../../../utils/logger');
 
 class UserService {
 

@@ -13,9 +13,10 @@ class AuthService {
         let userId = this._generateUserId(email);
 
         try {
+
             // Encrypt password
             const salt = await bcrypt.genSalt(10);
-            user.password = await bcrypt.hash(password, salt);
+            password = await bcrypt.hash(password, salt); 
 
             // Save user to database
             const user = await UserService.createUser({ userId, email, password, emailVerified });
@@ -60,7 +61,7 @@ class AuthService {
         }
     }
 
-    async _generateUserId(email) {
+    _generateUserId(email) {
         try {
             const userId = crypto
                 .createHash('sha256')
