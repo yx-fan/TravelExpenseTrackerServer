@@ -1,6 +1,10 @@
 # Base image
 FROM node:18
 
+# Set the timezone to America/New_York
+ENV TZ=America/New_York
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 # Set the working directory
 WORKDIR /app
 

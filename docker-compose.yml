@@ -18,12 +18,11 @@ services:
 
   rabbitmq:
     image: "rabbitmq:3-management"
-    environment:
-      - TZ=America/New_York
     ports:
       - "15672:15672"
       - "5672:5672"
     environment:
+      - TZ=America/New_York
       - RABBITMQ_DEFAULT_USER=guest
       - RABBITMQ_DEFAULT_PASS=guest
 
