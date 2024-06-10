@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0.3] - 2024-06-12
+### Changed
+- Try to recursively connect to RabbitMQ before starting server.
+- Encapsulate the app and server to enable step-by-step server initialization.
+
 ## [1.0.2] - 2024-06-10
 ### Added
 - Implemented message queue (MQ) to handle sending emails, improving API response speed.
