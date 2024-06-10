@@ -1,13 +1,10 @@
-const amqp = require('amqplib');
-const dotenv = require('dotenv');
-const logger = require('../utils/logger');
+const RabbitmqConnection = require('../rabbitmqConnection');
+const logger = require('../../utils/logger');
 
-dotenv.config();
-
-class rabbitmqConsumer {
-    async runConsumer() {
+class TestConsumer {
+    async run() {
         try {
-            const connection = await amqp.connect(process.env.RABBITMQ_URL);
+            const connection = await RabbitmqConnection.getConnection();
             const channel = await connection.createChannel();
             const queue = 'test';
             await channel.assertQueue(queue, { durable: true });
@@ -20,14 +17,14 @@ class rabbitmqConsumer {
                 }
             });
 
-            logger.info(`Consumer running on queue ${queue}`);
-        } catch (err) {
-            logger.error(`Error running consumer: ${err.message}`);
+            logger.info(`Test consumer running on queue ${queue}`);
+        } catch (error) {
+            logger.error(`Error running test consumer: ${error.message}`);
             setTimeout(() => {
-                this.runConsumer();
+                this.run();
             }, 5000);
         }
     }
 }
 
-module.exports = new rabbitmqConsumer();
+module.exports = new TestConsumer();

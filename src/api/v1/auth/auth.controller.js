@@ -1,6 +1,7 @@
 const AuthService = require('./auth.service');
 const UserService = require('../user/user.service');
-const emailVerificationService = require('./emailVerification.service');
+const EmailVerificationService = require('./emailVerification.service');
+const ProducerManager = require('../../../../messaging/producerManager.service');
 const customError = require('../../../../utils/customError');
 const logger = require('../../../../utils/logger');
 
@@ -56,7 +57,9 @@ class AuthController {
                 throw new customError('Invalid verification type', 400);
             }
 
-            await emailVerificationService.sendVerificationEmail(email, type);
+            // Send task to email queue
+            // This can help to reduce the response time of the API
+            await ProducerManager.sendToQueue('email', { email, type });
             pendingVerifications[email] = { verified: false, type, expires: Date.now() + 3600000 };  // 1 hour
             return res.status(200).json({ message: 'Verification email sent' });
         } catch (err) {
@@ -72,7 +75,7 @@ class AuthController {
         }
 
         try {
-            const email = await emailVerificationService.verifyEmail(token);
+            const email = await EmailVerificationService.verifyEmail(token);
             if (pendingVerifications[email]) {
                 pendingVerifications[email].verified = true;
             } else {

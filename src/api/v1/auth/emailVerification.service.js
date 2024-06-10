@@ -6,7 +6,7 @@ const customError = require('../../../../utils/customError');
 
 dotenv.config();
 
-class emailVerificationService {
+class EmailVerificationService {
     constructor () {
         // Verification tokens are stored in memory
         this.verificationTokens = {};  // { token: { email, expires } }
@@ -105,4 +105,4 @@ class emailVerificationService {
 
 }
 
-module.exports = new emailVerificationService();
+module.exports = new EmailVerificationService();
