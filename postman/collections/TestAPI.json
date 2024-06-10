@@ -1,0 +1,74 @@
+{
+	"info": {
+		"_postman_id": "ceda0765-046d-4dcf-a7b9-0468ad4c6359",
+		"name": "TestAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "26275573-ceda0765-046d-4dcf-a7b9-0468ad4c6359"
+	},
+	"item": [
+		{
+			"name": "TestErrorMiddleware",
+			"id": "d1a3e6c6-e4f1-453b-918b-907c2a831869",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/error",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"error"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TestRabbitMq",
+			"id": "f0e2ca6f-8e55-4641-a488-68f07e75b9c2",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/produce/hello",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"produce",
+						"hello"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "TestPassportMiddleware",
+			"id": "cb288b4f-93aa-49f8-9daf-6a91b21c3942",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/protected",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"protected"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

@@ -1,0 +1,162 @@
+{
+	"info": {
+		"_postman_id": "2f0c2b1e-cd83-4e27-993e-1cd3e84309cd",
+		"name": "AuthAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "26275573-2f0c2b1e-cd83-4e27-993e-1cd3e84309cd"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"id": "efa84075-ce7a-46dc-bf8f-1bac02b2a265",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"abc@abc.com\",\n    \"password\": \"abc123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/api/v1/auth/register",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"id": "349ec77b-da37-4ce1-be5e-db58e73ed0ba",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"abc@abc.com\",\n    \"password\": \"abc123\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/api/v1/auth/login",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SendVerificationEmail",
+			"id": "15a21042-c03c-4dac-9a53-c0c1c26cde83",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"email\": \"abc@abc.com\",\n    \"type\": \"register\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{domain}}/api/v1/auth/send-verification-email",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"send-verification-email"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "VerifyEmail",
+			"id": "ae0e060d-c7ba-49bc-9219-69f885982347",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{domain}}/api/v1/auth/verify-email?token=ESXH56",
+					"host": [
+						"{{domain}}"
+					],
+					"path": [
+						"api",
+						"v1",
+						"auth",
+						"verify-email"
+					],
+					"query": [
+						{
+							"key": "token",
+							"value": "ESXH56",
+							"type": "text"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "8c7d239c-054b-4de7-98e2-7ee1940ea892",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "644e1281-d1f1-44bd-a6cc-e3a7eb2557e8",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
