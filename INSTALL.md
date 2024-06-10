@@ -67,7 +67,7 @@ LOCAL_BASE_URL=http://localhost
 
 ### Using Docker
 
-Start services using Docker Compose:
+You can run the project using Docker. Ensure Docker and Docker Compose are installed on your system.
 
 ```bash
 docker-compose up --build
@@ -79,12 +79,27 @@ This will start the server along with MongoDB and Kafka as defined in the `docke
 
 Before start the server, Make sure MongoDB and RabbitMQ are running locally.
 
-Start the server:
+To start the service, run the following command in the project root directory:
+
+```bash
+npm start
+```
+
+For development purposes using `Nodemon`, run the following command:
+
 ```bash
 npm run dev
 ```
 
 This will start the server on the port specified in the `.env` file (default is 3000).
+
+### Access the Service
+
+Once the service is running, you can access it in your browser at:
+
+```bash
+http://localhost:3000
+```
 
 ## Additional Information
 
