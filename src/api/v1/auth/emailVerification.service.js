@@ -78,7 +78,7 @@ class emailVerificationService {
     }
 
     _startCleanUpInterval() {
-        setInterval(() => {
+        setInterval(async () => {
             try {
                 const now = Date.now();
                 for (let token in this.verificationTokens) {

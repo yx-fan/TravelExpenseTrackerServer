@@ -9,7 +9,7 @@ const pendingVerifications = {}; // { email: { verified: false, type, expires: D
 class AuthController {
 
     constructor() {
-        this._startCleanUpInterval();  // 启动定期清理过期记录的定时器
+        this._startCleanUpInterval();  // Clean up expired verification codes
     }
 
     async register(req, res, next) {
@@ -67,6 +67,9 @@ class AuthController {
     async verifyEmail(req, res, next) {
 
         const { token } = req.query;
+        if (!token) {
+            return next(new customError('Verification code required', 400));
+        }
 
         try {
             const email = await emailVerificationService.verifyEmail(token);
@@ -102,7 +105,7 @@ class AuthController {
     }
 
     _startCleanUpInterval() {
-        setInterval(() => {
+        setInterval(async () => {
             try {
                 const now = Date.now();
                 for (let email in pendingVerifications) {
