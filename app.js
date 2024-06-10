@@ -4,7 +4,7 @@ const db = require('./config/db');
 // const kafkaService = require('./config/kafka');
 const logger = require('./utils/logger');
 const errorMiddleware = require('./middlewares/error.middleware');
-const authMiddleware = require('./middlewares/auth.middleware');
+const passport = require('./config/passport');
 const authRoutes = require('./src/api/v1/auth/auth.route');
 const RabbitmqProducer = require('./messaging/rabbitmqProducer.service');
 const rabbitmqConsumer = require('./messaging/rabbitmqConsumer.service');
@@ -27,12 +27,14 @@ const app = express();
 app.use(express.json());  // Parse JSON bodies
 app.use(express.urlencoded({ extended: true }));  // Parse URL-encoded bodies
 
+app.use(passport.initialize());  // Initialize passport
+
 app.get('/', (req, res) => {
     logger.info('Root endpoint hit');
     res.send('Welcome to the API');
 });
 
-app.use('/api/auth', authRoutes);  // Auth routes
+app.use('/api/v1/auth', authRoutes);  // Auth routes
 
 if (process.env.NODE_ENV === 'development') {
     // Test error route
@@ -42,7 +44,7 @@ if (process.env.NODE_ENV === 'development') {
         next(err);
     });
 
-    // Test Kafka producer route
+    // Test RabbitMQ send and receive message
     app.get('/produce/:message', async (req, res) => {
         const message = req.params.message;
         await RabbitmqProducer.sendMessage('test', message);
@@ -51,7 +53,7 @@ if (process.env.NODE_ENV === 'development') {
     });
 
     // Test of auth middleware, should return 401
-    app.get('/protected', authMiddleware, (req, res) => {
+    app.get('/protected', passport.authenticate('jwt', { session: false }), (req, res) => {
         res.send('Authenticated');
     });
 }
