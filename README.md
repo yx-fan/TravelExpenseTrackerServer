@@ -60,6 +60,10 @@ JWT_SECRET=change_to_the_jwt_secret
 LOG_LEVEL=debug
 NODE_ENV=development
 RABBITMQ_URL=amqp://127.0.0.1:5672
+SENDER_EMAIL=change_to_sender_email
+SENDER_EMAIL_PASSWORD=change_to_sender_email_password
+PROD_BASE_URL=change_to_production_base_url
+LOCAL_BASE_URL=http://localhost
 ```
 
 Create a `.env.docker` file in the root directory and add the following variables for starting by docker-compose:
@@ -70,6 +74,10 @@ JWT_SECRET=change_to_the_jwt_secret
 LOG_LEVEL=debug
 NODE_ENV=development
 RABBITMQ_URL=amqp://rabbitmq:5672
+SENDER_EMAIL=change_to_sender_email
+SENDER_EMAIL_PASSWORD=change_to_sender_email_password
+PROD_BASE_URL=change_to_production_base_url
+LOCAL_BASE_URL=http://localhost
 ```
 
 ### Running the Application

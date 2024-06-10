@@ -1,4 +1,4 @@
-const userModel = require('../../../../model/user.model');
+const UserService = require('../user/user.service');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const crypto = require('crypto');
@@ -8,20 +8,18 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 class AuthService {
-    async register({email, password}) {
-        try {
-            // Create a new user
-            let nickname = "user";
-            let userId = crypto.createHash('sha256').update(email).digest('hex');
-            let user = new userModel({ userId, nickname, email, password });
+    async register({email, password, emailVerified = false}) {
 
+        let userId = this._generateUserId(email);
+
+        try {
             // Encrypt password
             const salt = await bcrypt.genSalt(10);
             user.password = await bcrypt.hash(password, salt);
 
-            // Save user
-            user = await user.save();
-
+            // Save user to database
+            const user = await UserService.createUser({ userId, email, password, emailVerified });
+        
             // Return jsonwebtoken
             const token = this._generateToken(user);
             return token;
@@ -58,6 +56,20 @@ class AuthService {
             return token;
         } catch (err) {
             logger.error(`Error generating token: ${err.message}`);
+            throw new Error(err.message);
+        }
+    }
+
+    async _generateUserId(email) {
+        try {
+            const userId = crypto
+                .createHash('sha256')
+                .update(email)
+                .digest('hex');  // Generate userId from email
+
+            return userId;
+        } catch (err) {
+            logger.error(`Error generating userId: ${err.message}`);
             throw new Error(err.message);
         }
     }
