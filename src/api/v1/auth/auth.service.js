@@ -13,7 +13,6 @@ class AuthService {
         let userId = this._generateUserId(email);
 
         try {
-
             // Encrypt password
             const salt = await bcrypt.genSalt(10);
             password = await bcrypt.hash(password, salt); 
