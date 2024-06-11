@@ -6,10 +6,8 @@ const errorMiddleware = require('./middlewares/error.middleware');
 const passport = require('./config/passport');
 const authRoutes = require('./src/api/v1/auth/auth.route');
 const ConsumerManager = require('./messaging/consumerManager.service');
-const ProducerManager = require('./messaging/producerManager.service');
 
-// Load environment variables
-dotenv.config();
+dotenv.config();  // Load environment variables
 
 async function createApp() {
 
@@ -24,31 +22,15 @@ async function createApp() {
 
     app.get('/', (req, res) => {
         logger.info('Root endpoint hit');
-        res.send('Welcome to the API');
+        res.send('Welcome to Travel Expense APP API');
     });
 
     app.use('/api/v1/auth', authRoutes);  // Auth routes
 
-    // Development routes
+    // Load test routes only in development environment
     if (process.env.NODE_ENV === 'development') {
-        // Test error route
-        app.get('/error', (req, res, next) => {
-            const err = new Error('This is an test error message');
-            err.statusCode = 400;
-            next(err);
-        });
-
-        // Test RabbitMQ send and receive message
-        app.get('/produce/:message', async (req, res) => {
-            const message = req.params.message;
-            await ProducerManager.sendToQueue('test', message);
-            res.send('Test message sent to RabbitMQ');
-        });
-
-        // Test of auth middleware, should return 401
-        app.get('/protected', passport.authenticate('jwt', { session: false }), (req, res) => {
-            res.send('Authenticated');
-        });
+        const testRoutes = require('./test/testRoutes');
+        app.use('/test', testRoutes);
     }
 
     // Error handler middleware
