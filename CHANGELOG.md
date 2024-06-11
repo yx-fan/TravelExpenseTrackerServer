@@ -4,6 +4,7 @@
 ### Changed
 - Try to recursively connect to RabbitMQ before starting server.
 - Encapsulate the app and server to enable step-by-step server initialization.
+- Stability increased.
 
 ## [1.0.2] - 2024-06-10
 ### Added

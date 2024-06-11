@@ -8,16 +8,13 @@ const authRoutes = require('./src/api/v1/auth/auth.route');
 const ConsumerManager = require('./messaging/consumerManager.service');
 const ProducerManager = require('./messaging/producerManager.service');
 
+// Load environment variables
+dotenv.config();
+
 async function createApp() {
-    // Load environment variables
-    dotenv.config();
 
     // Connect to database
     db.connect();
-
-    // Initialize rabbitmq consumer
-    ConsumerManager.startAllConsumers();
-
     const app = express();
 
     // Middleware
@@ -60,5 +57,11 @@ async function createApp() {
     return app;
 }
 
-// Export app for testing
-module.exports = createApp;
+async function initializeConsumers() {
+    await ConsumerManager.startAllConsumers();
+}
+
+module.exports = {
+    createApp,
+    initializeConsumers
+};
