@@ -7,7 +7,7 @@ services:
     environment:
       - TZ=America/New_York
     ports:
-      - "3000:3000"
+      - "3001:3001"
     volumes:
       - .:/app  # Mount the current directory to /app in the container
     depends_on:

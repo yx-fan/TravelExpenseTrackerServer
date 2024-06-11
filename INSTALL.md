@@ -51,7 +51,7 @@ LOCAL_BASE_URL=http://localhost
 Create a `.env.docker` file in the root directory and add the following variables for starting by docker-compose:
 
 ```bash
-PORT=3000
+PORT=3001
 MONGO_URI=mongodb://mongodb:27017/travel-expense-tracker
 JWT_SECRET=change_to_the_jwt_secret
 LOG_LEVEL=debug
@@ -73,7 +73,9 @@ You can run the project using Docker. Ensure Docker and Docker Compose are insta
 docker-compose up --build
 ```
 
-This will start the server along with MongoDB and Kafka as defined in the `docker-compose.yml` file.
+This will start the server along with MongoDB and RabbitMQ as defined in the `docker-compose.yml` file. 
+
+This will start the server on the port specified in the `.env.docker` file (default is 3001).
 
 ### Running Locally
 
