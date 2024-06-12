@@ -86,7 +86,7 @@ To start the service, run the following command in the project root directory:
 ```bash
 npm start
 ```
-
+ 
 For development purposes using `Nodemon`, run the following command:
 
 ```bash
