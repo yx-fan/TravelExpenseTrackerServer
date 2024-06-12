@@ -27,7 +27,7 @@ class ProducerManager {
             const channel = await this.getChannel();
             await channel.assertQueue(queue, { durable: true });
             channel.sendToQueue(queue, Buffer.from(JSON.stringify(message)));
-            logger.info(`Sent message to queue ${queue}: ${message}`);
+            logger.info(`Sent message to queue ${queue}: ${JSON.stringify(message)}`);
         } catch (err) {
             logger.error(`Error sending message to RabbitMQ: ${err.message}`);
         }

@@ -6,6 +6,8 @@ const errorMiddleware = require('./middlewares/error.middleware');
 const passport = require('./config/passport');
 const authRoutes = require('./src/api/v1/auth/auth.route');
 const ConsumerManager = require('./messaging/consumerManager.service');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./config/swagger');
 
 dotenv.config();  // Load environment variables
 
@@ -19,6 +21,7 @@ async function createApp() {
     app.use(express.json());  // Parse JSON bodies
     app.use(express.urlencoded({ extended: true }));  // Parse URL-encoded bodies
     app.use(passport.initialize());  // Initialize passport
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));  // Swagger UI
 
     app.get('/', (req, res) => {
         logger.info('Root endpoint hit');

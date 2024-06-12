@@ -13,7 +13,7 @@ class EmailConsumer {
             channel.consume(queue, async (msg) => {
                 if (msg !== null) {
                     const message = JSON.parse(msg.content.toString());
-                    logger.info(`Received message from queue ${queue}: ${message}`);
+                    logger.info(`Received message from queue ${queue}: ${msg.content.toString()}`);
                     await EmailVerificationService.sendVerificationEmail(message.email, message.type);
                     channel.ack(msg);
                 }
