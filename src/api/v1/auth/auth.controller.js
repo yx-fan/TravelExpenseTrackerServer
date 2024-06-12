@@ -33,7 +33,7 @@ class AuthController {
             // Remove email from pending verifications
             delete pendingVerifications[email];
 
-            return res.status(201).json({ token });
+            return res.success({ token }, 'User registered successfully', 201)
         } catch (err) {
             next(err);
         }
@@ -61,7 +61,7 @@ class AuthController {
             // This can help to reduce the response time of the API
             await ProducerManager.sendToQueue('email', { email, type });
             pendingVerifications[email] = { verified: false, type, expires: Date.now() + 3600000 };  // 1 hour
-            return res.status(200).json({ message: 'Verification email sent' });
+            return res.success({}, 'Verification email sent successfully');
         } catch (err) {
             next(err);
         }
@@ -81,7 +81,7 @@ class AuthController {
             } else {
                 throw new customError('Verification code not sent for this email', 400);
             }
-            return res.status(200).json({ email });
+            return res.success({}, 'Email verified successfully');
         } catch (err) {
             next(err);
         }
@@ -101,7 +101,7 @@ class AuthController {
                 throw new customError('Invalid email or password', 400);
             }
             const token = await AuthService.login(user);
-            return res.status(200).json({ token });
+            return res.success({ token }, 'User logged in successfully');
         } catch (err) {
             next(err);
         }

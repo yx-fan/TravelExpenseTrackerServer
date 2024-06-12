@@ -74,8 +74,10 @@ router.get('/verify-email', AuthController.verifyEmail);
  *             properties:
  *               email:
  *                 type: string
+ *                 example: lawrence.yuxinfan@outlook.com
  *               password:
  *                 type: string
+ *                 example: abc123
  *     responses:
  *       201:
  *         description: User registered successfully

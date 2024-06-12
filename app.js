@@ -3,6 +3,7 @@ const dotenv = require('dotenv');
 const db = require('./config/db');
 const logger = require('./utils/logger');
 const errorMiddleware = require('./middlewares/error.middleware');
+const responseMiddleware = require('./middlewares/response.middleware');
 const passport = require('./config/passport');
 const authRoutes = require('./src/api/v1/auth/auth.route');
 const ConsumerManager = require('./messaging/consumerManager.service');
@@ -21,6 +22,7 @@ async function createApp() {
     app.use(express.json());  // Parse JSON bodies
     app.use(express.urlencoded({ extended: true }));  // Parse URL-encoded bodies
     app.use(passport.initialize());  // Initialize passport
+    app.use(responseMiddleware);  // Custom response middleware
     app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));  // Swagger UI
 
     app.get('/', (req, res) => {
