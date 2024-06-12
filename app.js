@@ -1,5 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
+const cors = require('cors');
 const db = require('./config/db');
 const logger = require('./utils/logger');
 const errorMiddleware = require('./middlewares/error.middleware');
@@ -19,6 +20,7 @@ async function createApp() {
     const app = express();
 
     // Middleware
+    app.use(cors());  // Enable CORS
     app.use(express.json());  // Parse JSON bodies
     app.use(express.urlencoded({ extended: true }));  // Parse URL-encoded bodies
     app.use(passport.initialize());  // Initialize passport
