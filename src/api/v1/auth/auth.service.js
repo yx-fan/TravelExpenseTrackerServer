@@ -22,6 +22,7 @@ class AuthService {
         
             // Return jsonwebtoken
             const token = this._generateToken(user);
+            logger.info(`User registered: ${user.email}`);
             return token;
         } catch (err) {
             logger.error(`Error registering user: ${err.message}`);
@@ -42,6 +43,7 @@ class AuthService {
     async login(user) {
         try {
             const token = this._generateToken(user);
+            logger.info(`User logged in: ${user.email}`);
             return token;
         } catch (err) {
             logger.error(`Error logging in user: ${err.message}`);

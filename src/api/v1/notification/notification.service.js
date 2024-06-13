@@ -17,6 +17,16 @@ class NotificationService {
         }
     }
 
+    async getNotifications(user) {
+        try {
+            const notifications = await InAppNotificationModel.find({ user }).sort({ createdAt: -1 });
+            return notifications;
+        } catch (err) {
+            logger.error(`Error getting notifications: ${err.message}`);
+            throw new Error(err.message);
+        }
+    }
+
 }
 
 module.exports = new NotificationService();

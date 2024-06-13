@@ -61,7 +61,7 @@ class AuthController {
             // This can help to reduce the response time of the API
             await ProducerManager.sendToQueue('email', { email, type });
             pendingVerifications[email] = { verified: false, type, expires: Date.now() + 3600000 };  // 1 hour
-            return res.success({}, 'Verification email sent successfully');
+            return res.success({}, 'Verification email sent successfully', 200);
         } catch (err) {
             next(err);
         }
@@ -81,7 +81,7 @@ class AuthController {
             } else {
                 throw new customError('Verification code not sent for this email', 400);
             }
-            return res.success({}, 'Email verified successfully');
+            return res.success({}, 'Email verified successfully', 200);
         } catch (err) {
             next(err);
         }
@@ -101,7 +101,7 @@ class AuthController {
                 throw new customError('Invalid email or password', 400);
             }
             const token = await AuthService.login(user);
-            return res.success({ token }, 'User logged in successfully');
+            return res.success({ token }, 'User logged in successfully', 200);
         } catch (err) {
             next(err);
         }
