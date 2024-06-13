@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.0.4] - 2024-06-12
+### Added
+- Add get and patch functions in user services.
+- Provide endpoints to get user profile or change it.
+- Add response middleware to handle response.
+- Add swagger api doc.
+
+### Changed
+- Implement notification and profile schema to user model.
+
 ## [1.0.3] - 2024-06-10
 ### Changed
 - Recursively connect to RabbitMQ before starting server.
