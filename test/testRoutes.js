@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const ProducerManager = require('../messaging/producerManager.service');
+const testTesseract = require('../test/testTesseract');
 const passport = require('../config/passport');
 
 router.get('/error', (req, res, next) => {
@@ -19,5 +20,11 @@ router.get('/produce/:message', async (req, res) => {
 router.get('/protected', passport.authenticate('jwt', { session: false }), (req, res) => {
     res.send('Authenticated');
 });
+
+router.get('/scanReceipt', async (req, res) => {
+    const result = await testTesseract('./test/test.jpeg');
+    res.send(result);
+});
+
 
 module.exports = router;
