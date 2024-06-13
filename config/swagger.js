@@ -3,7 +3,7 @@ const dotenv = require('dotenv');
 const { swaggerComponents }= require('./swaggerComponents');
 
 dotenv.config();
-const url = process.env.NODE_ENV === 'production' ? process.env.PROD_BASE_URL +  ":" + process.env.PORT : process.env.LOCAL_BASE_URL + ":" + process.env.PORT;
+const url = process.env.NODE_ENV === 'production' ? process.env.PROD_BASE_URL : process.env.LOCAL_BASE_URL + ":" + process.env.PORT;
 
 const options = {
     definition: {
