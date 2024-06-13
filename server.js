@@ -1,6 +1,5 @@
 const RabbitmqConnection = require('./messaging/rabbitmqConnection');
 const db = require('./config/db');
-const { createApp, initializeConsumers } = require('./app');
 const logger = require('./utils/logger');
 
 async function startServer() {
@@ -12,6 +11,7 @@ async function startServer() {
         // 2. Connect to database
         await db.connect();
 
+        const { createApp, initializeConsumers } = require('./app');
         // 3. Initialize consumers
         await initializeConsumers();
 
