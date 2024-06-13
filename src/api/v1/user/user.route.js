@@ -15,7 +15,7 @@ const router = express.Router();
  * /api/v1/user/profile:
  *   get:
  *     summary: Get user profile
- *     tags: [Users]
+ *     tags: [User]
  *     security:
  *       - bearerAuth: []
  *     responses:
@@ -33,7 +33,7 @@ router.get('/profile', passport.authenticate('jwt', { session: false }), UserCon
  * /api/v1/user/profile:
  *   patch:
  *     summary: Update user profile
- *     tags: [Users]
+ *     tags: [User]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
@@ -68,7 +68,7 @@ router.patch('/profile', passport.authenticate('jwt', { session: false }), UserC
  * /api/v1/user/notification-settings:
  *   patch:
  *     summary: Update notification settings
- *     tags: [Users]
+ *     tags: [User]
  *     security:
  *       - bearerAuth: []
  *     requestBody:
