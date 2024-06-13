@@ -1,7 +1,6 @@
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
-const db = require('./config/db');
 const logger = require('./utils/logger');
 const errorMiddleware = require('./middlewares/error.middleware');
 const responseMiddleware = require('./middlewares/response.middleware');
@@ -16,8 +15,6 @@ dotenv.config();  // Load environment variables
 
 async function createApp() {
 
-    // Connect to database
-    db.connect();
     const app = express();
 
     // Middleware
@@ -35,7 +32,6 @@ async function createApp() {
 
     app.use('/api/v1/auth', authRoutes);  // Auth routes
     app.use('/api/v1/user', userRoutes);  // User routes
-
 
     // Load test routes only in development environment
     if (process.env.NODE_ENV === 'development') {
