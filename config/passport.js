@@ -12,12 +12,12 @@ const opts = {
 
 passport.use(new JwtStrategy(opts, async (jwt_payload, done) => {
     try {
-        // Find user by userId
+        // Find user by userId and attach user to req.user
         const user = await UserModel.findOne({ userId: jwt_payload.user.userId });
         if (!user) {
             return done(null, false);
         }
-        done(null, user);
+        done(null, user);  // Attach user to req.user
     } catch (err) {
         done(err, false);
     }

@@ -25,6 +25,35 @@ class UserService {
         }
     }
 
+    async updateProfile(userId, profileData) {
+        try {
+            const user = await userModel.findOneAndUpdate(
+                { userId },
+                { profile: profileData },
+                { new: true }
+            );
+            return user ? user : null;
+        } catch (err) {
+            logger.error(`Error updating user profile: ${err.message}`);
+            throw new Error(err.message);
+        }
+    }
+
+    async updateNotificationSettings(userId, notificationSettingsData) {
+        try {
+            const user = await userModel.findOneAndUpdate(
+                { userId },
+                { notificationSettings: notificationSettingsData },
+                { new: true }
+            ); 
+            return user ? user : null;
+        } catch (err) {
+            logger.error(`Error updating notification settings: ${err.message}`);
+            throw new Error(err.message);
+        }
+
+    }
+
 
 
 }

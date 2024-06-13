@@ -7,6 +7,7 @@ const errorMiddleware = require('./middlewares/error.middleware');
 const responseMiddleware = require('./middlewares/response.middleware');
 const passport = require('./config/passport');
 const authRoutes = require('./src/api/v1/auth/auth.route');
+const userRoutes = require('./src/api/v1/user/user.route');
 const ConsumerManager = require('./messaging/consumerManager.service');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./config/swagger');
@@ -33,6 +34,8 @@ async function createApp() {
     });
 
     app.use('/api/v1/auth', authRoutes);  // Auth routes
+    app.use('/api/v1/user', userRoutes);  // User routes
+
 
     // Load test routes only in development environment
     if (process.env.NODE_ENV === 'development') {
