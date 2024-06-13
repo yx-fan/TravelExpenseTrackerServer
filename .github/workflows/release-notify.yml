@@ -26,7 +26,7 @@ jobs:
         EMAIL_PORT: ${{ secrets.EMAIL_PORT }}
         EMAIL_USER: ${{ secrets.EMAIL_USER }}
         EMAIL_PASS: ${{ secrets.EMAIL_PASS }}
-        TO_EMAIL: "r29jiang@seas.upenn.edu,rongjial@seas.upenn.edu"
+        TO_EMAIL: "r29jiang@seas.upenn.edu,rongjial@seas.upenn.edu, yuxinfan@seas.upenn.edu"
       run: |
         node -e "
           const nodemailer = require('nodemailer');
