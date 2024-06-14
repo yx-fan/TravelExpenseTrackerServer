@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.0.5] - 2024-06-13
+### Added
+- Add in app notification model, function and the first notification.
+- Add trip module and its endpoints.
+- Add receipt recognition function and test.
+
+### Changed
+- Change the start of db to the server.js.
+
+### Fixed
+- Update swagger url to make it available for testing.
+
+
 ## [1.0.4] - 2024-06-12
 ### Added
 - Add get and patch functions in user services.
