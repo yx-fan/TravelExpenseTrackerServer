@@ -14,6 +14,9 @@ COPY package*.json ./
 # Install the dependencies
 RUN npm install
 
+# Install nodemon
+RUN npm install -g nodemon
+
 # Copy the rest of the files
 COPY . .
 
