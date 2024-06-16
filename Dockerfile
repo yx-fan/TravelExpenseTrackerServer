@@ -1,9 +1,12 @@
 # Base image
-FROM node:18
+FROM node:18 AS build
 
 # Set the timezone to America/New_York
 ENV TZ=America/New_York
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+# Update the package list
+RUN apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y && apt-get autoremove -y
 
 # Set the working directory
 WORKDIR /app
@@ -19,6 +22,19 @@ RUN npm install -g nodemon
 
 # Copy the rest of the files
 COPY . .
+
+# Use smaller image
+FROM node:18-slim
+
+# Set the timezone to America/New_York
+ENV TZ=America/New_York
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
+# Set the working directory
+WORKDIR /app
+
+# Copy the files from the build image
+COPY --from=build /app /app
 
 # Expose the port
 EXPOSE 3001
