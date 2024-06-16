@@ -1,4 +1,4 @@
-# Node.js dependencies
+# Node.js
 node_modules
 
 # Environment variables file
@@ -9,11 +9,15 @@ node_modules
 .gitignore
 .github
 
+# Postman collection
+.postman
+postman
+
 #Dockerfiles and docker-compose files
 build_amd64_image.sh
-Dockerfile
 docker-compose.dev.yml
 docker-compose.prod.yml
+Dockerfile
 
 # Logs
-app.log
+*.log
