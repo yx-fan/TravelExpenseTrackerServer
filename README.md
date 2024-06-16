@@ -39,10 +39,10 @@ Travel and Expense Tracker is a Node.js-based backend application designed to he
 - Docker and Docker Compose
 
 ### Installation
-Refer to the [Installation Guide](INSTALL.md).
+Refer to the [Installation Guide](./documents/INSTALL.md).
 
 ### Usage (on going)
-Refer to the [Usage Guide](USAGE.md).
+Refer to the [Usage Guide](./documents/USAGE.md).
 
 ### Deployment (on going)
 Refer to the [Deployment Guide](DEPLOYMENT.md).

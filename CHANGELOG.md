@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0.6] - 2024-06-15
+### Changed
+- Clean up the files that are needed when deploying on production
+- Upgrade local docker setting for better development (changes on codes can reflect in the docker in real time)
+
 ## [1.0.5] - 2024-06-13
 ### Added
 - Add in app notification model, function and the first notification.
