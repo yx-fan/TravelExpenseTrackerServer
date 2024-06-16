@@ -1,0 +1,19 @@
+# Node.js dependencies
+node_modules
+
+# Environment variables file
+.env
+.env.docker
+
+# Git repository files
+.gitignore
+.github
+
+#Dockerfiles and docker-compose files
+build_amd64_image.sh
+Dockerfile
+docker-compose.dev.yml
+docker-compose.prod.yml
+
+# Logs
+app.log

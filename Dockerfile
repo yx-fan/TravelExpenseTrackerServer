@@ -21,4 +21,4 @@ COPY . .
 EXPOSE 3001
 
 # Start the application
-CMD ["npm", "start"]
+CMD ["sh", "-c", "if [ \"$NODE_ENV\" = \"development\" ]; then nodemon dotenv/config server.js; else node server.js; fi"]
