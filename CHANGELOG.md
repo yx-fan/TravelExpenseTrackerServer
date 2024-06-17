@@ -1,4 +1,15 @@
 # Changelog
+## [1.0.7] - 2024-06-16
+### Added
+- Add models for expense and receipts
+- Add language dectetion for pre-ocr process
+- Add ocr process to generate text
+
+### Changes
+- Organize the documents
+
+### Fixed
+- Fix the issue that nodemon can't be used in dev mode
 
 ## [1.0.6] - 2024-06-15
 ### Changed
