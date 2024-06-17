@@ -1,4 +1,12 @@
 # Changelog
+## [1.0.8] - 2024-06-17
+### Added
+- Use openai to parse the text data after ocr process
+- Add receipt and expense functions, controllers and endpoints
+
+### Changed
+- Update expense and receipt data structures to better relfect the business needs
+
 ## [1.0.7] - 2024-06-16
 ### Added
 - Add models for expense and receipts
