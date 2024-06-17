@@ -1,5 +1,6 @@
 const express = require('express');
 const multer = require('multer');
+const passport = require('../../../../config/passport');
 const ReceiptController = require('./receipt.controller');
 
 const router = express.Router();
@@ -18,6 +19,8 @@ const upload = multer({ dest: 'uploads/' });
  *   post:
  *     summary: Upload a receipt
  *     tags: [Receipt]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -34,6 +37,6 @@ const upload = multer({ dest: 'uploads/' });
  *       500:
  *         description: Internal server error
  */
-router.post('/upload', upload.single('receipt'), ReceiptController.uploadReceipt);
+router.post('/upload', passport.authenticate('jwt', { session: false }), upload.single('receipt'), ReceiptController.parseReceipt);
 
 module.exports = router;
