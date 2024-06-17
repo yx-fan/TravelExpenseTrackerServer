@@ -15,7 +15,7 @@ const upload = multer({ dest: 'uploads/' });
 
 /**
  * @swagger
- * /api/v1/receipt/upload:
+ * /api/v1/receipt/ocr:
  *   post:
  *     summary: Upload a receipt
  *     tags: [Receipt]
@@ -37,6 +37,6 @@ const upload = multer({ dest: 'uploads/' });
  *       500:
  *         description: Internal server error
  */
-router.post('/upload', passport.authenticate('jwt', { session: false }), upload.single('receipt'), ReceiptController.parseReceipt);
+router.post('/ocr', passport.authenticate('jwt', { session: false }), upload.single('receipt'), ReceiptController.parseReceiptImage);
 
 module.exports = router;

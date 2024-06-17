@@ -1,3 +1,4 @@
+const ReceiptModel = require('../../../../models/receipt.model');
 const OpenAI = require('openai');
 const logger = require('../../../../utils/logger');
 const dotenv = require('dotenv');
@@ -29,14 +30,14 @@ class ReceiptService {
 
                 By using the exact keys to return a json format information according to the receipt data above:
                 {
-                    MerchantName
-                    Address
-                    Date
-                    Time
-                    TransactionID
-                    TotalAmount
-                    PostalCode
-                    OtherDetails
+                    merchantName
+                    location
+                    date
+                    time
+                    receiptId
+                    amount
+                    postalCode
+                    otherDetails
                 }
             `;
 
@@ -71,12 +72,14 @@ class ReceiptService {
 
     async saveReceiptData(user, trip, receiptData) {
         try {
-            let merchantName = receiptData.MerchantName;
-            let date = receiptData.Date;
-            let amount = receiptData.TotalAmount;
-            let location = receiptData.Address;
-            let receiptId = receiptData.TransactionID;
-            let postalCode = receiptData.PostalCode;
+            let merchantName = receiptData.merchantName ? receiptData.merchantName : '';
+            let date = receiptData.date ? receiptData.date : '';
+            let amount = receiptData.amount ? receiptData.amount : 0;
+            let location = receiptData.location ? receiptData.location : '';
+            let receiptId = receiptData.receiptId ? receiptData.receiptId : '';
+            let postalCode = receiptData.postalCode ? receiptData.postalCode : '';
+            let imageUrl = receiptData.imageUrl ? receiptData.imageUrl : '';
+            console.log(imageUrl)
 
             let receipt = new ReceiptModel({
                 merchantName,
@@ -85,6 +88,7 @@ class ReceiptService {
                 location,
                 receiptId,
                 postalCode,
+                imageUrl,
                 user: user,
                 trip: trip,
             });

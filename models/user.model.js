@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const { profile } = require('winston');
 
 const NotificationSettingsSchema = new mongoose.Schema({
     emailNotifications: { 

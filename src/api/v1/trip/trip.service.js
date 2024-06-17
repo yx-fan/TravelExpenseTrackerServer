@@ -5,7 +5,12 @@ class TripService {
     
     async createTrip(user, tripData) {
         try {
-            let trip = new TripModel({ user, ...tripData });
+            let tripId = this._generateTripId();
+            let trip = new TripModel({
+                tripId,
+                user,
+                ...tripData
+            });
             trip = await trip.save();
             return trip;
         } catch (err) {
@@ -23,6 +28,24 @@ class TripService {
             throw new Error(err.message);
         }
     }
+
+    async getTripById(tripId) {
+        try {
+            const trip = await TripModel.findOne({ tripId });
+            return trip;
+        } catch (err) {
+            logger.error(`Error getting trip by id: ${err.message}`);
+            throw new Error(err.message);
+        }
+    }
+
+    _generateTripId() {
+        const timestamp = Date.now();
+        const randomNum = Math.floor(Math.random() * 1000000);
+        return `${timestamp}-${randomNum}`;
+    }
+
+    
 }
 
 module.exports = new TripService();

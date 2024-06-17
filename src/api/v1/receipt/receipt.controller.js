@@ -4,7 +4,7 @@ const path = require('path');
 
 class ReceiptController {
 
-    async parseReceipt(req, res, next) {
+    async parseReceiptImage(req, res, next) {
         const imagePath = path.join(__dirname, `../../../../${req.file.path}`);
         try {
             const text = await OCRService.processImage(imagePath);
