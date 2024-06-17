@@ -17,9 +17,6 @@ COPY package*.json ./
 # Install the dependencies
 RUN npm install
 
-# Install nodemon
-RUN npm install -g nodemon
-
 # Copy the rest of the files
 COPY . .
 
@@ -35,6 +32,9 @@ WORKDIR /app
 
 # Copy the files from the build image
 COPY --from=build /app /app
+
+# Install nodemon
+RUN npm install -g nodemon
 
 # Expose the port
 EXPOSE 3001

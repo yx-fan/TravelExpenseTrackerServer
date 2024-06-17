@@ -1,4 +1,4 @@
 {
-    "watch": ["src", "config", "middleware", "utils"],
+    "watch": ["src", "config", "middleware", "utils", "models", "app.js"],
     "ext": "js, json"
 }
