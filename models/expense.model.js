@@ -8,7 +8,7 @@ const expenseSchema = new mongoose.Schema({
     location: { type: String, default: '' },
     postalCode: { type: String, default: ''},
     description: { type: String, default: '' },
-    longtitude: { type: Number, default: 0 },
+    longitude: { type: Number, default: 0 },
     latitude: { type: Number, default: 0 },
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     trip: { type: mongoose.Schema.Types.ObjectId, ref: 'Trip', required: true },

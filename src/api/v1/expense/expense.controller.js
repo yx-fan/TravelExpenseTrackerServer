@@ -1,7 +1,7 @@
 const ExpenseService = require('./expense.service');
 const ReceiptService = require('../receipt/receipt.service');
 const TripService = require('../trip/trip.service');
-const CoordinateService = require('../coordinate/coordinate.service');
+const CoordinateService = require('./coordinate.service');
 const customError = require('../../../../utils/customError');
 const logger = require('../../../../utils/logger');
 
