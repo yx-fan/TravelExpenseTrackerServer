@@ -32,6 +32,8 @@ class ExpenseService {
             let location = expenseData.location ? expenseData.location : '';
             let postalCode = expenseData.postalCode ? expenseData.postalCode : '';
             let description = expenseData.description ? expenseData.description : '';
+            let latitude = expenseData.latitude ? expenseData.latitude : 0;
+            let longitude = expenseData.longitude ? expenseData.longitude : 0;
 
             let expense = new ExpenseModel({
                 category,
@@ -41,6 +43,8 @@ class ExpenseService {
                 location,
                 postalCode,
                 description,
+                latitude,
+                longitude,
                 user: user,
                 trip: trip,
                 receipt: receipt
