@@ -11,6 +11,7 @@ const notificationRoutes = require('./src/api/v1/notification/notification.route
 const tripRoutes = require('./src/api/v1/trip/trip.route');
 const receiptRoutes = require('./src/api/v1/receipt/receipt.route');
 const expenseRoutes = require('./src/api/v1/expense/expense.route');
+const CurrencyRoutes = require('./src/api/v1/currency/currency.route');
 const ConsumerManager = require('./messaging/consumerManager.service');
 const swaggerUi = require('swagger-ui-express');
 const swaggerSpec = require('./config/swagger');
@@ -41,6 +42,7 @@ async function createApp() {
     app.use('/api/v1/trip', tripRoutes);  // Trip routes
     app.use('/api/v1/receipt', receiptRoutes);  // Receipt routes
     app.use('/api/v1/expense', expenseRoutes);  // Expense routes
+    app.use('/api/v1/currency', CurrencyRoutes);  // Currency routes
 
     // Load test routes only in development environment
     if (process.env.NODE_ENV === 'development') {

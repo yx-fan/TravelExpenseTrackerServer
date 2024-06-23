@@ -1,6 +1,7 @@
 const RabbitmqConnection = require('./messaging/rabbitmqConnection');
 const db = require('./config/db');
 const logger = require('./utils/logger');
+const CurrencyUpdater = require('./jobs/currencyUpdater');
 
 async function startServer() {
     try {
@@ -20,8 +21,9 @@ async function startServer() {
 
         // 5. Start the server
         const PORT = process.env.PORT || 3000;
-        app.listen(PORT, () => {
+        app.listen(PORT, async () => {
             logger.info(`Server running on port ${PORT}`);
+            await CurrencyUpdater.initialize();
         });
     } catch (error) {
         logger.error(`Error starting server: ${error.message}`);
