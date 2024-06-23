@@ -30,14 +30,14 @@ class ReceiptService {
 
                 By using the exact keys to return a json format information according to the receipt data above:
                 {
-                    merchantName
-                    location
-                    date
-                    time
-                    receiptId
-                    amount
-                    postalCode
-                    otherDetails
+                    "merchantName": "string",
+                    "location": "string (full address)",
+                    "date": "string",
+                    "time": "string",
+                    "receiptId": "string",
+                    "amount": "string",
+                    "postalCode": "string",
+                    "otherDetails": "string"
                 }
             `;
 
