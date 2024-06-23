@@ -1,4 +1,14 @@
 # Changelog
+
+## [1.0.9] - 2024-06-23
+### Added
+- Use MapBox service to get longitude and latidute data to expense document
+- Add totalAmount field to trip model
+- Update totalAmount when an expense is confirmed to be added
+- Add currency model and set timer to regularly update currencies by using third party service
+- Add currency list endpoint
+- Update create trip endpoint and set currency as a must
+
 ## [1.0.8] - 2024-06-17
 ### Added
 - Use openai to parse the text data after ocr process
