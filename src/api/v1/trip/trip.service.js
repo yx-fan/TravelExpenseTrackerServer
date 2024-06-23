@@ -39,6 +39,18 @@ class TripService {
         }
     }
 
+    async addTripTotalAmount(tripId, amount) {
+        try {
+            const trip = await TripModel.findOne({ tripId });
+            trip.totalAmount += amount;
+            trip.save();
+            return trip;
+        } catch (err) {
+            logger.error(`Error adding total amount to trip: ${err.message}`);
+            throw new Error(err.message);
+        }
+    }
+
     _generateTripId() {
         const timestamp = Date.now();
         const randomNum = Math.floor(Math.random() * 1000000);

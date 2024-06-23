@@ -13,7 +13,7 @@ class ExpenseController {
         let expenseData = req.body;
         try {
             
-            const trip = await TripService.getTripById(tripId);
+            let trip = await TripService.getTripById(tripId);
             if (!trip) {
                 throw new customError('Trip not found', 404);
             }
@@ -26,7 +26,9 @@ class ExpenseController {
             }
             expenseData.latitude = latitude;
             expenseData.longitude = longitude;
-            const expense = await ExpenseService.createExpense(user, trip, receipt, expenseData);
+            let expense = await ExpenseService.createExpense(user, trip, receipt, expenseData);
+            trip = await TripService.addTripTotalAmount(tripId, expenseData.amount);
+            expense.trip = trip;  // Update the trip object in the expense object
             return res.success({ expense }, 'Expense created successfully', 201);
         } catch (error) {
             next(error);
