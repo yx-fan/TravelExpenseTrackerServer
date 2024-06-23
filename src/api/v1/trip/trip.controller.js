@@ -1,17 +1,23 @@
 const TripService = require('./trip.service');
+const CurrencyService = require('../currency/currency.service');
 const customError = require('../../../../utils/customError');
 const logger = require('../../../../utils/logger');
 
 class TripController {
 
     async createTrip(req, res, next) {
-        const { tripName, startDate, endDate, description } = req.body;
-        if (!tripName || !startDate || !endDate) {
+        const { tripName, startDate, endDate, description, currencyCode } = req.body;
+        if (!tripName || !startDate || !endDate || !currencyCode) {
             throw new customError('Missing required fields', 400);
         }
 
+        const currency = await CurrencyService.getCurrencyByCode(currencyCode);
+        if (!currency) {
+            throw new customError('Invalid currency code', 400);
+        }
+
         try {
-            const trip = await TripService.createTrip(req.user, { tripName, startDate, endDate, description });
+            const trip = await TripService.createTrip(req.user, { tripName, startDate, endDate, description, currency });
             return res.success(trip, 'Trip created successfully', 201);
         } catch (error) {
             next(error);

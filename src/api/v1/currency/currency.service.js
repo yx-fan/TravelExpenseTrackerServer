@@ -12,6 +12,16 @@ class CurrencyService {
         }
     }
 
+    async getCurrencyByCode(code) {
+        try {
+            const currency = await CurrencyModel.findOne({ code });
+            return currency;
+        } catch (err) {
+            logger.error(`Error getting currency by code: ${err.message}`);
+            throw new Error(err.message);
+        }
+    }
+
 }
 
 module.exports = new CurrencyService();

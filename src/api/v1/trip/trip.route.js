@@ -39,10 +39,14 @@ const router = express.Router();
  *               description:
  *                 type: string
  *                 example: A trip to Dubai
+ *               currencyCode:
+ *                 type: string
+ *                 example: AED
  *         required:
  *           - tripName
  *           - startDate
  *           - endDate
+ *           - currencyCode
  *     responses:
  *       201:
  *         description: Trip created successfully
