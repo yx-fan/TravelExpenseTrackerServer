@@ -35,10 +35,10 @@ const router = express.Router();
  *             properties:
  *               category:
  *                 type: number
- *                 example: 9
+ *                 example: 1
  *               receiptId:
  *                 type: string
- *                 example: #e6d598ef
+ *                 example: e6d598ef
  *               merchantName:
  *                 type: string
  *                 example: Starbucks
@@ -116,5 +116,87 @@ router.get('/', passport.authenticate('jwt', { session: false }), ExpenseControl
  *         description: Internal server error
  */
 router.get('/:tripId', passport.authenticate('jwt', { session: false }), ExpenseController.getExpensesByTrip);
+
+/**
+ * @swagger
+ * /api/v1/expense/{expenseId}:
+ *   patch:
+ *     summary: Update an expense
+ *     tags: [Expense]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: expenseId
+ *         required: true
+ *         description: Expense ID
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               category:
+ *                 type: number
+ *                 example: 1
+ *               receiptId:
+ *                 type: string
+ *                 example: e6d598ef
+ *               merchantName:
+ *                 type: string
+ *                 example: Starbucks
+ *               date:
+ *                 type: string
+ *                 format: date
+ *                 example: 2021-12-01
+ *               amount:
+ *                 type: number
+ *                 example: 100
+ *               location:
+ *                 type: string
+ *                 example: 6332 Business Drive, Suite 528, Palo Alto, California 94301
+ *               postalCode:
+ *                 type: string
+ *                 example: 94301
+ *               description:
+ *                 type: string
+ *                 example: I ordered a cappuccino
+ *     responses:
+ *       200:
+ *         description: Expense updated successfully
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Internal server error
+ */
+router.patch('/:expenseId', passport.authenticate('jwt', { session: false }), ExpenseController.updateExpense);
+
+/**
+ * @swagger
+ * /api/v1/expense/{expenseId}:
+ *   delete:
+ *     summary: Delete an expense
+ *     tags: [Expense]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: expenseId
+ *         required: true
+ *         description: Expense ID
+ *         schema:
+ *           type: string
+ *     responses:
+ *       200:
+ *         description: Expense deleted successfully
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Internal server error
+ */
+router.delete('/:expenseId', passport.authenticate('jwt', { session: false }), ExpenseController.deleteExpense);
 
 module.exports = router;

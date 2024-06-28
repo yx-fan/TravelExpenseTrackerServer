@@ -101,6 +101,16 @@ class ReceiptService {
         }
     }
 
+    async deleteReceipt(receiptId) {
+        try {
+            const receipt = await ReceiptModel.findByIdAndDelete(receiptId);
+            return receipt;
+        } catch (error) {
+            logger.error(`Error deleting receipt: ${error.message}`);
+            throw new Error('Error deleting receipt');
+        }
+    }
+
 
 }
 

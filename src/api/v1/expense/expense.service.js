@@ -3,26 +3,6 @@ const logger = require('../../../../utils/logger');
 
 class ExpenseService {
 
-    async getExpenses(user) {
-        try {
-            const expenses = await ExpenseModel.find({ user });
-            return expenses;
-        } catch (err) {
-            logger.error(`Error getting expenses: ${err.message}`);
-            throw new Error(err.message);
-        }
-    }
-
-    async getExpensesByTrip(user, trip) {
-        try {
-            const expenses = await ExpenseModel.find({ user, trip });
-            return expenses;
-        } catch (err) {
-            logger.error(`Error getting expenses by trip: ${err.message}`);
-            throw new Error(err.message);
-        }
-    }
-
     async createExpense(user, trip, receipt, expenseData) {
         try {
             let category = expenseData.category;
@@ -57,6 +37,48 @@ class ExpenseService {
             throw new Error(err.message);
         }
     }
+
+    async getExpenses(user) {
+        try {
+            const expenses = await ExpenseModel.find({ user });
+            return expenses;
+        } catch (err) {
+            logger.error(`Error getting expenses: ${err.message}`);
+            throw new Error(err.message);
+        }
+    }
+
+    async getExpensesByTrip(user, trip) {
+        try {
+            const expenses = await ExpenseModel.find({ user, trip });
+            return expenses;
+        } catch (err) {
+            logger.error(`Error getting expenses by trip: ${err.message}`);
+            throw new Error(err.message);
+        }
+    }
+
+    async updateExpense(expenseId, expenseData) {
+        try {
+            const expense = await ExpenseModel.findByIdAndUpdate(expenseId, expenseData, { new: true });
+            return expense;
+        } catch (err) {
+            logger.error(`Error updating expense: ${err.message}`);
+            throw new Error(err.message);
+        }
+    }
+
+    async deleteExpense(expenseId) {
+        try {
+            const expense = await ExpenseModel.findByIdAndDelete(expenseId);
+            return expense;
+        } catch (err) {
+            logger.error(`Error deleting expense: ${err.message}`);
+            throw new Error(err.message);
+        }
+    }
+
+
 
 }
 

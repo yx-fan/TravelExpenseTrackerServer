@@ -61,6 +61,29 @@ class ExpenseController {
         }
     }
 
+    async updateExpense(req, res, next) {
+        const expenseId = req.params.expenseId;
+        const expenseData = req.body;
+        try {
+            const expense = await ExpenseService.updateExpense(expenseId, expenseData);
+            return res.success({ expense }, 'Expense updated successfully', 200);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async deleteExpense(req, res, next) {
+        const expenseId = req.params.expenseId;
+        try {
+            const expense = await ExpenseService.deleteExpense(expenseId);
+            const receiptId = expense.receipt;
+            await ReceiptService.deleteReceipt(receiptId);
+            return res.success({ expense }, 'Expense deleted successfully', 200);
+        } catch (error) {
+            next(error);
+        }
+    }
+
 
 
 }
