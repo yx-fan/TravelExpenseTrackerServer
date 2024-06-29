@@ -5,7 +5,7 @@ class ExpenseService {
 
     async createExpense(user, trip, receipt, expenseData) {
         try {
-            let category = expenseData.category;
+            let category = expenseData.category ? expenseData.category : 6;
             let merchantName = expenseData.merchantName ? expenseData.merchantName : '';
             let date = expenseData.date ? expenseData.date : '';
             let amount = expenseData.amount ? expenseData.amount : 0;
