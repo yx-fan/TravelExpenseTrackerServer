@@ -35,7 +35,7 @@ class ReceiptService {
                     "date": "string",
                     "time": "string",
                     "receiptId": "string",
-                    "amount": "string",
+                    "amount": "double",
                     "postalCode": "string",
                     "otherDetails": "string"
                 }
