@@ -29,6 +29,9 @@ class OCRService {
     async detectLanguage(text) {
         try {
             const result = await cld.detect(text);
+            if (!result.reliable) {
+                return 'en'; // Default to English if language detection is not reliable
+            }
             return result.languages[0].code;
         } catch (error) {
             logger.error(`Error detecting language: ${error.message}`);
