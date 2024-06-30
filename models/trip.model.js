@@ -7,7 +7,7 @@ const TripSchema = new mongoose.Schema({
     description: { type: String, required: false, default: ''},
     startDate: { type: Date, required: true },
     endDate: { type: Date, required: true },
-    currency: { type: mongoose.Schema.Types.ObjectId, ref: 'Currency', required: true },
+    currency: { type: mongoose.Schema.Types.ObjectId, ref: 'Currency' },
     totalAmount: { type: Number, required: true, default: 0 },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },

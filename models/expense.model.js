@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const expenseSchema = new mongoose.Schema({
-    category: { type: Number, required: true, default: 9},
+    category: { type: Number, required: true, default: 6},
     merchantName: { type: String, default: ''},
     date: { type: Date, default: '' },
     amount: { type: Number, default: 0},
@@ -10,6 +10,7 @@ const expenseSchema = new mongoose.Schema({
     description: { type: String, default: '' },
     longitude: { type: Number, default: 0 },
     latitude: { type: Number, default: 0 },
+    starred: { type: Boolean, default: false },
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     trip: { type: mongoose.Schema.Types.ObjectId, ref: 'Trip', required: true },
     receipt: { type: mongoose.Schema.Types.ObjectId, ref: 'Receipt', required: true},
