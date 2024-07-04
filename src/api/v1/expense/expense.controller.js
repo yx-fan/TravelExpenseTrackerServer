@@ -27,7 +27,6 @@ class ExpenseController {
             expenseData.latitude = latitude;
             expenseData.longitude = longitude;
             let expense = await ExpenseService.createExpense(user, trip, receipt, expenseData);
-            trip = await TripService.addTripTotalAmount(tripId, expenseData.amount);
             expense.trip = trip;  // Update the trip object in the expense object
             return res.success({ expense }, 'Expense created successfully', 201);
         } catch (error) {

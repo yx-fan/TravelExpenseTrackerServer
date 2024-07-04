@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const TripModel = require('./trip.model');
 
 const expenseSchema = new mongoose.Schema({
     category: { type: Number, required: true, default: 6},
@@ -18,6 +19,23 @@ const expenseSchema = new mongoose.Schema({
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
 });
+
+expenseSchema.post('save', async function (doc) {
+   await updateTripTotals(doc.trip); 
+})
+
+expenseSchema.post('remove', async function (doc) {
+    await updateTripTotals(doc.trip);
+})
+
+async function updateTripTotals(tripId) {
+    const trip = await TripModel.findById(tripId);
+    console.log(trip);
+    const expenses = await ExpenseModel.find({ trip: tripId });
+    trip.totalAmount = expenses.reduce((acc, expense) => acc + expense.amount, 0);
+    trip.totalNumberOfExpenses = expenses.length;
+    await trip.save();
+}
 
 const ExpenseModel = mongoose.model('Expense', expenseSchema);
 

@@ -9,6 +9,7 @@ const TripSchema = new mongoose.Schema({
     endDate: { type: Date, required: true },
     currency: { type: mongoose.Schema.Types.ObjectId, ref: 'Currency' },
     totalAmount: { type: Number, required: true, default: 0 },
+    totalNumberOfExpenses: { type: Number, required: true, default: 0 },
     createdAt: { type: Date, default: Date.now },
     updatedAt: { type: Date, default: Date.now },
 });
