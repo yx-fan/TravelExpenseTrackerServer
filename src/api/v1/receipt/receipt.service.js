@@ -111,6 +111,15 @@ class ReceiptService {
         }
     }
 
+    async deleteAllReceipts(user) {
+        try {
+            const receipts = await ReceiptModel.deleteMany({ user });
+            return receipts;
+        } catch (error) {
+            logger.error(`Error deleting all receipts: ${error.message}`);
+            throw new Error('Error deleting all receipts');
+        }
+    }
 
 }
 

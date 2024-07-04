@@ -27,6 +27,16 @@ class NotificationService {
         }
     }
 
+    async deleteAllNotifications(user) {
+        try {
+            const notifications = await InAppNotificationModel.deleteMany({ user });
+            return notifications;
+        } catch (err) {
+            logger.error(`Error deleting all notifications: ${err.message}`);
+            throw new Error(err.message);
+        }
+    }
+
 }
 
 module.exports = new NotificationService();

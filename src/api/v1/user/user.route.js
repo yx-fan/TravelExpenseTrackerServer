@@ -118,5 +118,24 @@ router.patch('/profile', passport.authenticate('jwt', { session: false }), UserC
  */
 router.patch('/notification-settings', passport.authenticate('jwt', { session: false }), UserController.updateNotificationSettings);  
 
+/**
+ * @swagger
+ * /api/v1/user:
+ *   delete:
+ *     summary: Delete user and clear all data
+ *     tags: [User]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: User deleted successfully
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: User not found
+ *       500:
+ *         description: Internal server error
+ */
+router.delete('/', passport.authenticate('jwt', { session: false }), UserController.deleteUserAndClearAllData);
 
 module.exports = router;

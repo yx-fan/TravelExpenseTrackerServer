@@ -59,6 +59,18 @@ class UserService {
 
     }
 
+    async deleteUser(userId) {
+        try {
+            const user = await UserModel.findOneAndDelete(
+                { userId }
+            );
+            return user ? user : null;
+        } catch (err) {
+            logger.error(`Error deleting user: ${err.message}`);
+            throw new Error(err.message);
+        }
+    }
+
 
 
 }

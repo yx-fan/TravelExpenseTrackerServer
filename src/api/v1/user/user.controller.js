@@ -1,4 +1,8 @@
 const UserService = require('./user.service');
+const NotificationService = require('../notification/notification.service');
+const ReceiptService = require('../receipt/receipt.service');
+const TripService = require('../trip/trip.service');
+const ExpenseService = require('../expense/expense.service');
 const customError = require('../../../../utils/customError');
 
 class UserController {
@@ -70,6 +74,32 @@ class UserController {
                 return res.error('User not found', 404);
             }
             res.success({ user: updatedUser }, 'Notification settings updated successfully', 200);
+        } catch (err) {
+            next(err);
+        }
+    }
+
+    async deleteUserAndClearAllData(req, res, next) {
+        const userId = req.user.userId;
+        try {
+            const deletedUser = await UserService.deleteUser(userId);
+            if (!deletedUser) {
+                return res.error('User not found', 404);
+            }
+
+            // Delete all notifications for user
+            await NotificationService.deleteAllNotifications(deletedUser);
+
+            // Delete all receipts for user
+            await ReceiptService.deleteAllReceipts(deletedUser);
+
+            // Delete all trips for user
+            await TripService.deleteAllTrips(deletedUser);
+
+            // Delete all expenses for user
+            await ExpenseService.deleteAllExpenses(deletedUser);
+
+            res.success({}, 'User deleted successfully', 200);
         } catch (err) {
             next(err);
         }

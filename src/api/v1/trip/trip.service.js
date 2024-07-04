@@ -39,6 +39,16 @@ class TripService {
         }
     }
 
+    async deleteAllTrips(user) {
+        try {
+            const trips = await TripModel.deleteMany({ user });
+            return trips;
+        } catch (err) {
+            logger.error(`Error deleting all trips: ${err.message}`);
+            throw new Error(err.message);
+        }
+    }
+
     _generateTripId() {
         const timestamp = Date.now();
         const randomNum = Math.floor(Math.random() * 1000000);

@@ -78,6 +78,16 @@ class ExpenseService {
         }
     }
 
+    async deleteAllExpenses(user) {
+        try {
+            const expenses = await ExpenseModel.deleteMany({ user });
+            return expenses;
+        } catch (err) {
+            logger.error(`Error deleting all expenses: ${err.message}`);
+            throw new Error(err.message);
+        }
+    }
+
 
 
 }
