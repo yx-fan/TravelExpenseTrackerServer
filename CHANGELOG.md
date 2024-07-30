@@ -1,4 +1,15 @@
 # Changelog
+## [1.1.0] - 2024-07-29
+### Added
+- Add update and delete endpoints for expenses, and receipts
+- Add hook functions to update the total amount of a trip when an expense is updated or deleted
+- Add delete account endpoint and remove all the data related to the user
+- Add check verification status endpoint
+
+### Changed
+- Updated the prompt for recognizing the receipt
+- Updated the default category for expenses
+- Set default language for ocr process
 
 ## [1.0.9] - 2024-06-23
 ### Added
