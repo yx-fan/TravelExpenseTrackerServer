@@ -87,6 +87,19 @@ class AuthController {
         }
     }
 
+    async checkEmailVerification(req, res, next) {
+        const { email } = req.query;
+
+        try {
+            if (!pendingVerifications[email]) {
+                throw new customError('Email not verified', 400);
+            }
+            return res.success({}, 'Email verified', 200);
+        } catch (err) {
+            next(err);
+        }
+    }
+
     async login(req, res, next) {
 
         const { email, password } = req.body;

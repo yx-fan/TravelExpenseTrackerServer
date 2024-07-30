@@ -58,6 +58,30 @@ router.post('/send-verification-email', AuthController.sendVerificationEmail);
  */
 router.get('/verify-email', AuthController.verifyEmail);
 
+
+/**
+ * @swagger
+ * /api/v1/auth/check-email-verification:
+ *   get:
+ *     summary: Check if email is verified
+ *     tags: [Auth]
+ *     parameters:
+ *       - in: query
+ *         name: email
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: Email address
+ *     responses:
+ *       200:
+ *         description: Email verified
+ *       400:
+ *         description: Email not verified
+ *       500:
+ *         description: Internal server error
+ */
+router.get('/check-email-verification', AuthController.checkEmailVerification);
+
 /**
  * @swagger
  * /api/v1/auth/register:
