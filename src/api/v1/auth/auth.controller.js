@@ -13,6 +13,14 @@ class AuthController {
         this._startCleanUpInterval();  // Clean up expired verification codes
     }
 
+    async validateToken(req, res, next) {
+        try {
+            return res.success({}, 'Token is valid', 200);
+        } catch (err) {
+            next(err);
+        }
+    }
+
     async register(req, res, next) {
 
         const { email, password } = req.body;

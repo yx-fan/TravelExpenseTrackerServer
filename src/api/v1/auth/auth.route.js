@@ -1,5 +1,6 @@
 const express = require('express');
 const AuthController = require('./auth.controller');
+const passport = require('../../../../config/passport');
 const router = express.Router();
 
 /**
@@ -133,6 +134,24 @@ router.post('/register', AuthController.register);
  *         description: Invalid email or password
  */
 router.post('/login', AuthController.login);
+
+/**
+ * @swagger
+ * /api/v1/auth/validate-token:
+ *   get:
+ *     summary: Validate JWT token
+ *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Token is valid
+ *       401:
+ *         description: Unauthorized
+ *       500:
+ *         description: Internal server error
+ */
+router.get('/validate-token', passport.authenticate('jwt', { session: false }), AuthController.validateToken);
 
 module.exports = router;
 
