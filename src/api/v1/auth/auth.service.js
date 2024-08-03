@@ -54,7 +54,7 @@ class AuthService {
     async _generateToken(user) {
         try {
             const payload = { user: { userId: user.userId } };
-            const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1h' });
+            const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '30d' });
             return token;
         } catch (err) {
             logger.error(`Error generating token: ${err.message}`);
