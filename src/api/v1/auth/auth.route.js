@@ -153,5 +153,35 @@ router.post('/login', AuthController.login);
  */
 router.get('/validate-token', passport.authenticate('jwt', { session: false }), AuthController.validateToken);
 
+
+/**
+ * @swagger
+ * /api/v1/auth/forgot-password:
+ *   post:
+ *     summary: Change password for forgot password
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 example: lawrence.yuxinfan@outlook.com
+ *               password:
+ *                 type: string
+ *                 example: abc123
+ *     responses:
+ *       200:
+ *         description: Password changed successfully
+ *       400:
+ *         description: Invalid input
+ *       500:
+ *         description: Internal server error
+ */
+router.post('/forgot-password', AuthController.changePassword);
+
 module.exports = router;
 

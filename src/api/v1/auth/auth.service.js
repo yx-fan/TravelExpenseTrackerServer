@@ -51,6 +51,21 @@ class AuthService {
         }
     }
 
+    async updatePassword(userId, password) {
+        try {
+            // Encrypt password
+            const salt = await bcrypt.genSalt(10);
+            password = await bcrypt.hash(password, salt); 
+
+            // Update password in user profile
+            await UserService.updateProfile(userId, { password });
+            return true;
+        } catch (err) {
+            logger.error(`Error updating password: ${err.message}`);
+            throw new Error(err.message);
+        }
+    }
+
     async _generateToken(user) {
         try {
             const payload = { user: { userId: user.userId } };

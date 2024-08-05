@@ -128,6 +128,32 @@ class AuthController {
         }
     }
 
+    async changePassword(req, res, next) {
+
+        const { email, password } = req.body;
+
+        try {
+            const verification = pendingVerifications[email];
+            if (!verification || !verification.verified || verification.type !== 'forgot-password') {
+                throw new customError('Email not verified for password change', 400);
+            }
+
+            const user = await UserService.findUserByEmail(email);
+            if (!user) {
+                throw new customError('User with this email does not exist', 400);
+            }
+
+            await AuthService.updatePassword(user.userId, password);
+
+            // Remove email from pending verifications
+            delete pendingVerifications[email];
+
+            return res.success({}, 'Password changed successfully', 200);
+        } catch (err) {
+            next(err);
+        }
+    }
+
     _startCleanUpInterval() {
         setInterval(async () => {
             try {
