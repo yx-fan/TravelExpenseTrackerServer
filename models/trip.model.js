@@ -5,6 +5,7 @@ const TripSchema = new mongoose.Schema({
     user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
     tripName: { type: String, required: true },
     description: { type: String, required: false, default: ''},
+    image: { type: String, required: false, default: ''},
     startDate: { type: Date, required: true },
     endDate: { type: Date, required: true },
     currency: { type: mongoose.Schema.Types.ObjectId, ref: 'Currency' },

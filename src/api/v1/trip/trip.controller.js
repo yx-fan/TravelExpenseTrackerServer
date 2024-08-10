@@ -6,7 +6,7 @@ const logger = require('../../../../utils/logger');
 class TripController {
 
     async createTrip(req, res, next) {
-        const { tripName, startDate, endDate, description, currencyCode } = req.body;
+        const { tripName, startDate, endDate, description, currencyCode, image } = req.body;
         if (!tripName || !startDate || !endDate || !currencyCode) {
             throw new customError('Missing required fields', 400);
         }
@@ -17,7 +17,7 @@ class TripController {
         }
 
         try {
-            const trip = await TripService.createTrip(req.user, { tripName, startDate, endDate, description, currency });
+            const trip = await TripService.createTrip(req.user, { tripName, startDate, endDate, description, currency, image });
             return res.success(trip, 'Trip created successfully', 201);
         } catch (error) {
             next(error);

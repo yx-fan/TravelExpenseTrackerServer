@@ -42,6 +42,9 @@ const router = express.Router();
  *               currencyCode:
  *                 type: string
  *                 example: AED
+ *               image:
+ *                 type: string
+ *                 example: http://example.com/image.jpg
  *         required:
  *           - tripName
  *           - startDate
