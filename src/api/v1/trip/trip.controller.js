@@ -74,6 +74,15 @@ class TripController {
         }
     }
 
+    async getDeletedTrips(req, res, next) {
+        try {
+            const trips = await TripService.getDeletedTrips(req.user);
+            return res.success(trips, 'Deleted trips retrieved successfully', 200);
+        } catch (error) {
+            next(error);
+        }
+    }
+
 
 }
 

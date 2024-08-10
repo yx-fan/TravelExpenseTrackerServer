@@ -96,6 +96,16 @@ class TripService {
         }
     }
 
+    async getDeletedTrips(user) {
+        try {
+            const trips = await TripDeleteModel.find({ user });
+            return trips;
+        } catch (err) {
+            logger.error(`Error getting deleted trips: ${err.message}`);
+            throw new Error(err.message);
+        }
+    }
+
     _generateTripId() {
         const timestamp = Date.now();
         const randomNum = Math.floor(Math.random() * 1000000);
