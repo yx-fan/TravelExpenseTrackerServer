@@ -99,7 +99,7 @@ class AuthController {
         const { email } = req.query;
 
         try {
-            if (!pendingVerifications[email]) {
+            if (!pendingVerifications[email].verified) {
                 throw new customError('Email not verified', 400);
             }
             return res.success({}, 'Email verified', 200);
