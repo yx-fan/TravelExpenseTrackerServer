@@ -73,8 +73,37 @@ router.post('/', passport.authenticate('jwt', { session: false }), TripControlle
  *         description: Trips retrieved successfully
  *       401:
  *         description: Unauthorized
+ *       500:
+ *         description: Internal server error 
  */
 router.get('/', passport.authenticate('jwt', { session: false }), TripController.getTrips);
+
+/**
+ * @swagger
+ * /api/v1/trip/{tripId}:
+ *   get:
+ *     summary: Get a trip by ID
+ *     tags: [Trip]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: tripId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The trip ID
+ *     responses:
+ *       200:
+ *         description: Trip retrieved successfully
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: Trip not found
+ *       500:
+ *         description: Internal server error
+ */
+router.get('/:tripId', passport.authenticate('jwt', { session: false }), TripController.getTrip);
 
 /**
  * @swagger

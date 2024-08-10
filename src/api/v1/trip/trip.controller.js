@@ -37,6 +37,19 @@ class TripController {
         }
     }
 
+    async getTrip(req, res, next) {
+        try {
+            const tripId = req.params.tripId;
+            const trip = await TripService.getTripById(tripId);
+            if (!trip) {
+                throw new customError('Trip not found', 404);
+            }
+            return res.success(trip, 'Trip retrieved successfully', 200);
+        } catch (error) {
+            next(error);
+        }
+    }
+
     async deleteOneTrip(req, res, next) {
         try {
             const tripId = req.params.tripId;
