@@ -1,24 +1,27 @@
 const TripService = require('./trip.service');
 const CurrencyService = require('../currency/currency.service');
+const NotificationService = require('../notification/notification.service');
 const customError = require('../../../../utils/customError');
-const logger = require('../../../../utils/logger');
-const { deleteOne } = require('../../../../models/inAppNotification.model');
 
 class TripController {
 
     async createTrip(req, res, next) {
         const { tripName, startDate, endDate, description, currencyCode, image } = req.body;
-        if (!tripName || !startDate || !endDate || !currencyCode) {
-            throw new customError('Missing required fields', 400);
-        }
-
-        const currency = await CurrencyService.getCurrencyByCode(currencyCode);
-        if (!currency) {
-            throw new customError('Invalid currency code', 400);
-        }
 
         try {
+            if (!tripName || !startDate || !endDate || !currencyCode) {
+                throw new customError('Missing required fields', 400);
+            }
+
+            const currency = await CurrencyService.getCurrencyByCode(currencyCode);
+            if (!currency) {
+                throw new customError('Invalid currency code', 400);
+            }
             const trip = await TripService.createTrip(req.user, { tripName, startDate, endDate, description, currency, image });
+
+            // Send notification
+            await NotificationService.createNotification(req.user, `Trip ${tripName} created successfully`);
+
             return res.success(trip, 'Trip created successfully', 201);
         } catch (error) {
             next(error);
@@ -42,6 +45,10 @@ class TripController {
                 throw new customError('Trip not found', 404);
             }
             await TripService.moveTripToTrash(tripId);
+
+            // Send notification
+            await NotificationService.createNotification(req.user, `Trip ${trip.tripName} deleted, you can revert it from trash in 24 hours`);
+
             return res.success({}, 'Trip deleted successfully', 200);
         } catch (error) {
             next(error);
@@ -57,6 +64,10 @@ class TripController {
             }
 
             await TripService.revertTripFromTrash(tripId);
+
+            // Send notification
+            await NotificationService.createNotification(req.user, `Trip ${trip.tripName} successfully reverted`);
+
             return res.success({}, 'Trip reverted successfully', 200);
         } catch (error) {
             next(error);
