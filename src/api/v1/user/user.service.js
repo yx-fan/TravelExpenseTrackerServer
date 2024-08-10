@@ -21,7 +21,7 @@ class UserService {
             user = await user.save();
 
             // Create welcome notification
-            await NotificationService.createNotification(user, 'Welcome to our app!');
+            await NotificationService.createNotification(user, 'Welcome to our app!', 'We are excited to have you on board!');
 
             return user;
         } catch (err) {

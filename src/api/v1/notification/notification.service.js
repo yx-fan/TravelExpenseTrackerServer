@@ -3,11 +3,13 @@ const logger = require('../../../../utils/logger');
 
 class NotificationService {
 
-    async createNotification(user, message) {
+    async createNotification(user, title, message, note = '') {
         try {
             const notification = new InAppNotificationModel({
                 user,
-                message
+                title,
+                message,
+                note
             });
             await notification.save();
             return notification;

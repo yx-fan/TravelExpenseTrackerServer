@@ -20,7 +20,7 @@ class TripController {
             const trip = await TripService.createTrip(req.user, { tripName, startDate, endDate, description, currency, image });
 
             // Send notification
-            await NotificationService.createNotification(req.user, `Trip ${tripName} created successfully`);
+            await NotificationService.createNotification(req.user, "Trip Created", `Trip ${trip.tripName} created successfully`, trip.tripId);
 
             return res.success(trip, 'Trip created successfully', 201);
         } catch (error) {
@@ -47,7 +47,7 @@ class TripController {
             await TripService.moveTripToTrash(tripId);
 
             // Send notification
-            await NotificationService.createNotification(req.user, `Trip ${trip.tripName} deleted, you can revert it from trash in 24 hours`);
+            await NotificationService.createNotification(req.user, "Trip Deleted", `Trip ${trip.tripName} deleted successfully and can be reverted in 24 hours`, trip.tripId);
 
             return res.success({}, 'Trip deleted successfully', 200);
         } catch (error) {
@@ -66,7 +66,7 @@ class TripController {
             await TripService.revertTripFromTrash(tripId);
 
             // Send notification
-            await NotificationService.createNotification(req.user, `Trip ${trip.tripName} successfully reverted`);
+            await NotificationService.createNotification(req.user, "Trip Reverted", `Trip ${trip.tripName} reverted successfully`, trip.tripId);
 
             return res.success({}, 'Trip reverted successfully', 200);
         } catch (error) {
