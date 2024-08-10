@@ -76,6 +76,59 @@ router.post('/', passport.authenticate('jwt', { session: false }), TripControlle
  */
 router.get('/', passport.authenticate('jwt', { session: false }), TripController.getTrips);
 
+/**
+ * @swagger
+ *   /api/v1/trip/{tripId}:
+ *     delete:
+ *       summary: Delete a trip and move it to trash
+ *       tags: [Trip]
+ *       security:
+ *         - bearerAuth: []
+ *       parameters:
+ *         - in: path
+ *           name: tripId
+ *           schema:
+ *             type: string
+ *           required: true
+ *           description: The trip ID
+ *       responses:
+ *         200:
+ *           description: Trip deleted successfully
+ *         401:
+ *           description: Unauthorized
+ *         404:
+ *           description: Trip not found
+ *         500:
+ *           description: Internal server error
+ */
+router.delete('/:tripId', passport.authenticate('jwt', { session: false }), TripController.deleteOneTrip);
 
+
+/**
+ * @swagger
+ * /api/v1/trip/revert-deleted-trip/{tripId}:
+ *   post:
+ *     summary: Revert a deleted trip
+ *     tags: [Trip]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: tripId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The trip ID
+ *     responses:
+ *       200:
+ *         description: Trip reverted successfully
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: Trip not found
+ *       500:
+ *         description: Internal server error
+ */
+router.post('/revert-deleted-trip/:tripId', passport.authenticate('jwt', { session: false }), TripController.revertDeletedTrip);
 
 module.exports = router;

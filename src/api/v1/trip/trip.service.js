@@ -1,4 +1,5 @@
 const TripModel = require('../../../../models/trip.model');
+const TripDeleteModel = require('../../../../models/trip.delete.model');
 const logger = require('../../../../utils/logger');
 
 class TripService {
@@ -45,6 +46,52 @@ class TripService {
             return trips;
         } catch (err) {
             logger.error(`Error deleting all trips: ${err.message}`);
+            throw new Error(err.message);
+        }
+    }
+
+    async moveTripToTrash(tripId) {
+        try {
+            const trip = await TripModel.findOne({ tripId });
+    
+            // Create a plain object from the trip document
+            const tripData = trip.toObject();
+            let tripDelete = new TripDeleteModel(tripData);
+            
+            tripDelete = await tripDelete.save();
+            await TripModel.deleteOne({ tripId });
+            
+            return tripDelete;
+        } catch (err) {
+            logger.error(`Error moving trip to trash: ${err.message}`);
+            throw new Error(err.message);
+        }
+    }
+
+    async getDeletedTripById(tripId) {
+        try {
+            const tripDelete = await TripDeleteModel.findOne({ tripId });
+            return tripDelete;
+        } catch (err) {
+            logger.error(`Error getting deleted trip by id: ${err.message}`);
+            throw new Error(err.message);
+        }
+    }
+
+    async revertTripFromTrash(tripId) {
+        try {
+            const tripDelete = await TripDeleteModel.findOne({ tripId });
+
+            // Create a plain object from the trip delete document
+            const tripData = tripDelete.toObject();
+            let trip = new TripModel(tripData);
+
+            trip = await trip.save();
+            await TripDeleteModel.deleteOne({ tripId });
+
+            return trip;
+        } catch (err) {
+            logger.error(`Error reverting trip from trash: ${err.message}`);
             throw new Error(err.message);
         }
     }

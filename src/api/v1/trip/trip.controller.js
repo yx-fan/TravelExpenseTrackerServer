@@ -2,6 +2,7 @@ const TripService = require('./trip.service');
 const CurrencyService = require('../currency/currency.service');
 const customError = require('../../../../utils/customError');
 const logger = require('../../../../utils/logger');
+const { deleteOne } = require('../../../../models/inAppNotification.model');
 
 class TripController {
 
@@ -32,6 +33,36 @@ class TripController {
             next(error);
         }
     }
+
+    async deleteOneTrip(req, res, next) {
+        try {
+            const tripId = req.params.tripId;
+            const trip = await TripService.getTripById(tripId);
+            if (!trip) {
+                throw new customError('Trip not found', 404);
+            }
+            await TripService.moveTripToTrash(tripId);
+            return res.success({}, 'Trip deleted successfully', 200);
+        } catch (error) {
+            next(error);
+        }
+    }
+
+    async revertDeletedTrip(req, res, next) {
+        try {
+            const tripId = req.params.tripId;
+            const trip = await TripService.getDeletedTripById(tripId);
+            if (!trip) {
+                throw new customError('Trip not found', 404);
+            }
+
+            await TripService.revertTripFromTrash(tripId);
+            return res.success({}, 'Trip reverted successfully', 200);
+        } catch (error) {
+            next(error);
+        }
+    }
+
 
 }
 
