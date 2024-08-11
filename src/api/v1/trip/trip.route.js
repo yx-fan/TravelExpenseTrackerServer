@@ -163,7 +163,7 @@ router.post('/revert-deleted-trip/:tripId', passport.authenticate('jwt', { sessi
 
 /**
  * @swagger
- * /api/v1/trip/deleted-trips:
+ * /api/v1/trip/deleted-trips/all:
  *   get:
  *     summary: Get all deleted trips
  *     tags: [Trip]
@@ -177,7 +177,7 @@ router.post('/revert-deleted-trip/:tripId', passport.authenticate('jwt', { sessi
  *       500:
  *         description: Internal server error
  */
-router.get('/deleted-trips', passport.authenticate('jwt', { session: false }), TripController.getDeletedTrips);
+router.get('/deleted-trips/all', passport.authenticate('jwt', { session: false }), TripController.getDeletedTrips);
 
 
 
