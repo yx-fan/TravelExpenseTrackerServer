@@ -50,6 +50,35 @@ class TripController {
         }
     }
 
+    async updateTrip(req, res, next) {
+        try {
+            const tripId = req.params.tripId;
+            const { tripName, startDate, endDate, description, currencyCode, image } = req.body;
+
+            const trip = await TripService.getTripById(tripId);
+            if (!trip) {
+                throw new customError('Trip not found', 404);
+            }
+
+            let currency;
+            if (currencyCode) {
+                currency = await CurrencyService.getCurrencyByCode(currencyCode);
+                if (!currency) {
+                    throw new customError('Invalid currency code', 400);
+                }
+            }
+
+            const updatedTrip = await TripService.updateTrip(tripId, { tripName, startDate, endDate, description, currency, image });
+
+            // Send notification
+            await NotificationService.createNotification(req.user, "Trip Updated", `Trip ${updatedTrip.tripName} updated successfully`, updatedTrip.tripId);
+
+            return res.success(updatedTrip, 'Trip updated successfully', 200);
+        } catch (error) {
+            next(error);
+        }
+    }
+
     async deleteOneTrip(req, res, next) {
         try {
             const tripId = req.params.tripId;

@@ -107,6 +107,60 @@ router.get('/:tripId', passport.authenticate('jwt', { session: false }), TripCon
 
 /**
  * @swagger
+ * /api/v1/trip/{tripId}:
+ *   patch:
+ *     summary: Update a trip
+ *     tags: [Trip]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: tripId
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The trip ID
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               tripName:
+ *                 type: string
+ *                 example: Trip to Dubai
+ *               startDate:
+ *                 type: string
+ *                 format: date
+ *                 example: 2021-12-01
+ *               endDate:
+ *                 type: string
+ *                 format: date
+ *                 example: 2021-12-10
+ *               description:
+ *                 type: string
+ *                 example: A trip to Dubai
+ *               currencyCode:
+ *                 type: string
+ *                 example: AED
+ *               image:
+ *                 type: string
+ *                 example: http://example.com/image.jpg
+ *     responses:
+ *       200:
+ *         description: Trip updated successfully
+ *       401:
+ *         description: Unauthorized
+ *       404:
+ *         description: Trip not found
+ *       500:
+ *         description: Internal server error
+ */
+router.patch('/:tripId', passport.authenticate('jwt', { session: false }), TripController.updateTrip);
+
+/**
+ * @swagger
  *   /api/v1/trip/{tripId}:
  *     delete:
  *       summary: Delete a trip and move it to trash

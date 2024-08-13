@@ -106,6 +106,16 @@ class TripService {
         }
     }
 
+    async updateTrip(tripId, tripData) {
+        try {
+            const trip = await TripModel.findOneAndUpdate({ tripId }, tripData, { new: true });
+            return trip;
+        } catch (err) {
+            logger.error(`Error updating trip: ${err.message}`);
+            throw new Error(err.message);
+        }
+    }
+
     _generateTripId() {
         const timestamp = Date.now();
         const randomNum = Math.floor(Math.random() * 1000000);
